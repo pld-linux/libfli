@@ -1,0 +1,23 @@
+--- fli-dist-1.71/libfli/Makefile.orig	2005-01-16 20:16:46.000000000 +0100
++++ fli-dist-1.71/libfli/Makefile	2011-08-23 08:40:02.612663117 +0200
+@@ -33,8 +33,18 @@
+ 
+ ALLOBJ	= $(SYS) $(DEBUG) $(MEM) $(IO) $(CAM) $(FILT)
+ 
+-libfli.a: libfli.o $(ALLOBJ)
+-	$(AR) $(ARFLAGS) $@ $^
++ALLLTOBJ=$(patsubst %.o, %.lo, $(ALLOBJ))
++
++libfli.la: libfli.lo $(ALLLTOBJ)
++	libtool --mode=link $(CC) $(LDFLAGS) $(CFLAGS) -o $@ $^ -rpath $(LIBDIR)
++
++%.lo: %.c
++	libtool --mode=compile $(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
++
++install: libfli.la
++	install -d $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCLUDEDIR)
++	libtool --mode=install install libfli.la $(DESTDIR)$(LIBDIR)
++	install -m644 libfli.h $(DESTDIR)$(INCLUDEDIR)
+ 
+ doc: doc-html doc-pdf
+ 
