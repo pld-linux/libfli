@@ -9,7 +9,7 @@
 +ALLLTOBJ=$(patsubst %.o, %.lo, $(ALLOBJ))
 +
 +libfli.la: libfli.lo $(ALLLTOBJ)
-+	libtool --mode=link $(CC) $(LDFLAGS) $(CFLAGS) -o $@ $^ -rpath $(LIBDIR)
++	libtool --mode=link $(CC) $(LDFLAGS) $(CFLAGS) -o $@ $^ -rpath $(LIBDIR) -lm
 +
 +%.lo: %.c
 +	libtool --mode=compile $(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<

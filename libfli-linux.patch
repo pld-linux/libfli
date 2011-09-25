@@ -1,0 +1,14 @@
+--- fli-dist-1.71/libfli/unix/linux/libfli-usb-sys.c.orig	2007-02-10 03:15:49.000000000 +0100
++++ fli-dist-1.71/libfli/unix/linux/libfli-usb-sys.c	2011-09-25 13:48:57.277888428 +0200
+@@ -48,8 +48,10 @@
+ #if (LINUX_VERSION_CODE < KERNEL_VERSION(2,6,14))
+ #include <usb.h>
+ #include <linux/usb.h>
+-#else
++#elif (LINUX_VERSION_CODE < KERNEL_VERSION(2,6,20))
+ #include <linux/usb_ch9.h>
++#else
++#include <linux/usb/ch9.h>
+ #endif
+ 
+ #include <linux/usbdevice_fs.h>
