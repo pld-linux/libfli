@@ -51,9 +51,9 @@ Statyczna biblioteka FLI.
 
 %prep
 %setup -q
-%patch0 -p2
+%patch -P0 -p2
 %undos libfli.c
-%patch1 -p2
+%patch -P1 -p2
 
 %build
 %{__make} \
